@@ -9,7 +9,7 @@ Also here are a few important rules that I learned along the way
 - mutations: 
   - These are considered [pure functions](https://www.sitepoint.com/functional-programming-pure-functions/) `(NO ASYNC HERE)` and are the only way you should be affecting `state`
   - Any time a mutation occurs, you can emit the `CHANGE` event so all subscribers can be notified of the change. 
-  - mutations do not need not return state as components can be subscribed to the state events
+  - mutations need to return state to set the state
 - actions: 
   - These are functions that can make `async` calls
   - then should use a mutation to write to the state when they are ready
