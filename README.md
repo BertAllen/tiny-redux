@@ -1,24 +1,23 @@
 # tiny-redux
 a tiny redux-like clone without any fancy ESNext syntax
 
-I wanted to make sure I had a firm understanding of the principles associated with an `immutable store` and `unidirectional dataflow` as sought after in the popular redux design pattern. 
+I wanted to make sure I had a firm understanding of the principles associated with an `immutable store` and `unidirectional data` flow as sought after in the popular redux design pattern. Rather than writing an entire library like redux I figured I could skip all the sanity checks and solely focus on writing the core functionality of this library. 
 
-Rather than writing an entire library like redux I figured I could skip all the sanity checks and soley focus on writting core functionality of this library. I also decided to forgo all the fancy ESNext syntax in case someone wanted to look at the guts of redux without having to know and understand all of the new syntatic sugar.
+I also decided to forgo all the fancy ESNext syntax in case someone wanted to look at the guts of the redux without having to know and understand all of the new syntactic sugar.
 
 Also here are a few important rules that I learned along the way 
 - mutations: 
   - These are considered [pure functions](https://www.sitepoint.com/functional-programming-pure-functions/) `(NO ASYNC HERE)` and are the only way you should be affecting `state`
-  - Any time a mutation occurs you can emit the `CHANGE` event so all subscribers can be notified of the change. 
+  - Any time a mutation occurs, you can emit the `CHANGE` event so all subscribers can be notified of the change. 
   - mutations do not need not return state as components can be subscribed to the state events
 - actions: 
   - These are functions that can make `async` calls
-  - then should use a mutation or reducer to write to the state when they are ready
+  - then should use a mutation to write to the state when they are ready
   - Actions never touch state themselves
 - state:
   - The true state object is never returned only a copy
 
-
-The philosophy behind redux is highly opinionated 
+The philosophy behind redux is highly opinionated and works great for many applications, however it should not be used as the golden hammer. If you have an application that works well without it, then don't feel like you need to adapt it to use something like redux.
 
 A small example of how to use the tiny-redux file 
 
