@@ -69,36 +69,3 @@ function Store (config) {
   }
   return store
 }
-
-var store = new Store({
-  state: {},
-  mutations: {
-    test: function (state, payload) {
-      if (payload && payload.type && payload.data) {
-        state[payload.type] = payload.data
-      }
-      return state
-    }
-  },
-  actions: {
-    test: function (payload) {
-      return new Promise(function (resolve, reject) {
-        setTimeout(function () {
-          return resolve({type: 'test', data: payload})
-        }, 3000)
-      }).then(function (res) {
-        return store.commit(res.type, res.data)
-      })
-    }
-  }
-})
-
-store.dispatch('test', {type: 'what', data: {hello: 'hello'}})
-
-store.on('test', function (payload) {
-  console.log(payload)
-})
-
-store.commit('non-registered-mutation', {wont: 'work'})
-
-store.commit('test', {type: 'what', data: {hello: 'world!'}})
