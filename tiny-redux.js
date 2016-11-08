@@ -1,3 +1,4 @@
+;(function(){}())
 function Emitter () {
   this.listeners = {}
 }
@@ -27,14 +28,18 @@ Emitter.prototype.emit = function (message, payload) {
 
 function Store (config) {
   var store = this
-  store = Object.create(new Emitter())
+	
+	//Store inherits Event Emitter Methods
+	store = Object.create(new Emitter())
+
   var state = config.state || {}
   var mutations = config.mutations || {}
-
   store.actions = config.actions || {}
+	store.getter = config.getters || {}
 
   store.getState = function () {
-    return Object.create({}, state)
+		// Allows DEEP copy of state
+		return JSON.parse(JSON.stringify(state))
   }
 
   function _toArray (type) {
@@ -46,6 +51,8 @@ function Store (config) {
     }
     return type
   }
+
+	
 
   store.dispatch = function (type, payload) {
     type = _toArray(type)
@@ -63,9 +70,9 @@ function Store (config) {
     if (!commitable) {
       return console.error(`[store::commit] unknown mutation type ${name}`)
     }
-    commitable.bind(null)
-    commitable(store.getState(), payload)
-    store.CHANGE(name, payload)
+    commitable = commitable.bind(null)
+    state = commitable(state, payload)
+		store.CHANGE(name, payload)
   }
-  return store
+	return store
 }
